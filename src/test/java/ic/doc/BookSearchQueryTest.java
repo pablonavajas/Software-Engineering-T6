@@ -5,6 +5,8 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+
+import ic.doc.catalogues.BookSearchQueryBuilder;
 import org.junit.Test;
 
 public class BookSearchQueryTest {
@@ -70,5 +72,14 @@ public class BookSearchQueryTest {
 
     assertThat(books.size(), is(3));
     assertTrue(books.get(0).matchesAuthor("charles dickens"));
+  }
+
+  @Test
+  public void searchesForBooksInLibraryCatalogueByAuthorSurnameUsingBuilder() {
+
+    List<Book> books = BookSearchQueryBuilder.bookSearch().withLastName("dickens").build().execute();
+
+    assertThat(books.size(), is(2));
+    assertTrue(books.get(0).matchesAuthor("dickens"));
   }
 }
