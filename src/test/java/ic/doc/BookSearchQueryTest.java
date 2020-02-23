@@ -4,10 +4,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-
 import ic.doc.catalogues.BookSearchQueryBuilder;
 import ic.doc.catalogues.MockShortCatalogue;
+import java.util.List;
 import org.junit.Test;
 
 public class BookSearchQueryTest {
@@ -82,7 +81,8 @@ public class BookSearchQueryTest {
   @Test
   public void searchesForBooksInLibraryCatalogueByAuthorSurnameUsingBuilder() {
 
-    List<Book> books = BookSearchQueryBuilder.bookSearch().withLastName("dickens").build().execute();
+    List<Book> books = BookSearchQueryBuilder.bookSearch()
+            .withLastName("dickens").build().execute();
 
     assertThat(books.size(), is(2));
     assertTrue(books.get(0).matchesAuthor("dickens"));
@@ -139,7 +139,7 @@ public class BookSearchQueryTest {
   }
 
   @Test
-  public void searchesForBooksInLibraryCatalogueWithCombinationOfTitleAndOtherParametersUsingBuilder() {
+  public void searchesForBooksInLibraryCatalogueWithTitleAndOtherParametersUsingBuilder() {
 
     List<Book> books = BookSearchQueryBuilder.bookSearch().withTitle("of")
             .afterDate(1800).beforeDate(2000).build().execute();
