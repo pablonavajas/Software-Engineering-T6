@@ -96,4 +96,49 @@ public class BookSearchQueryTest {
     assertTrue(books.get(0).matchesAuthor("Austen"));
   }
 
+  @Test
+  public void searchesForBooksInLibraryCatalogueByTitleUsingBuilder() {
+
+    List<Book> books = BookSearchQueryBuilder.bookSearch().withTitle("Two Cities").build().execute();
+
+    assertThat(books.size(), is(1));
+    assertTrue(books.get(0).matchesAuthor("dickens"));
+  }
+
+  @Test
+  public void searchesForBooksInLibraryCatalogueBeforeGivenPublicationYearUsingBuilder() {
+
+    List<Book> books = BookSearchQueryBuilder.bookSearch().beforeDate(1700).build().execute();
+
+    assertThat(books.size(), is(1));
+    assertTrue(books.get(0).matchesAuthor("Shakespeare"));
+  }
+
+  @Test
+  public void searchesForBooksInLibraryCatalogueAfterGivenPublicationYearUsingBuilder() {
+
+    List<Book> books = BookSearchQueryBuilder.bookSearch().afterDate(1950).build().execute();
+
+    assertThat(books.size(), is(1));
+    assertTrue(books.get(0).matchesAuthor("Golding"));
+  }
+
+  @Test
+  public void searchesForBooksInLibraryCatalogueWithCombinationOfParametersUsingBuilder() {
+
+    List<Book> books = BookSearchQueryBuilder.bookSearch().withLastName("dickens").beforeDate(1840).build().execute();
+
+    assertThat(books.size(), is(1));
+    assertTrue(books.get(0).matchesAuthor("charles dickens"));
+  }
+
+  @Test
+  public void searchesForBooksInLibraryCatalogueWithCombinationOfTitleAndOtherParametersUsingBuilder() {
+
+    List<Book> books = BookSearchQueryBuilder.bookSearch().withTitle("of").afterDate(1800).beforeDate(2000).build().execute();
+
+    assertThat(books.size(), is(3));
+    assertTrue(books.get(0).matchesAuthor("charles dickens"));
+  }
+
 }
