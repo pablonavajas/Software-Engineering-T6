@@ -1,8 +1,8 @@
 package ic.doc;
 
 import ic.doc.catalogues.BritishLibraryCatalogue;
-import java.util.List;
 import ic.doc.catalogues.Searchable;
+import java.util.List;
 
 public class BookSearchQuery {
 

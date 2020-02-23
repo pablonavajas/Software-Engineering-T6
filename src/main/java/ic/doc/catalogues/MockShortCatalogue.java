@@ -1,13 +1,12 @@
 package ic.doc.catalogues;
 
-import ic.doc.Book;
-
 import static ic.doc.catalogues.QueryParser.firstNameFrom;
 import static ic.doc.catalogues.QueryParser.lastNameFrom;
 import static ic.doc.catalogues.QueryParser.publishedAfterFrom;
 import static ic.doc.catalogues.QueryParser.publishedBeforeFrom;
 import static ic.doc.catalogues.QueryParser.titleFrom;
 
+import ic.doc.Book;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
