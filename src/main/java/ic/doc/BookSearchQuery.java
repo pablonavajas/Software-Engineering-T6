@@ -2,6 +2,7 @@ package ic.doc;
 
 import ic.doc.catalogues.BritishLibraryCatalogue;
 import java.util.List;
+import ic.doc.catalogues.Searchable;
 
 public class BookSearchQuery {
 
@@ -11,12 +12,19 @@ public class BookSearchQuery {
   private final Integer date1;
   private final Integer date2;
 
+  private Searchable catalogue = BritishLibraryCatalogue.getInstance();
+
   public BookSearchQuery(String p1, String p2, String p3, Integer p4, Integer p5) {
     this.name1 = p1;
     this.name2 = p2;
     this.title = p3;
     this.date1 = p4;
     this.date2 = p5;
+  }
+
+  public BookSearchQuery changeCatalogue(Searchable catalogue) {
+    this.catalogue = catalogue;
+    return this;
   }
 
   public List<Book> execute() {
@@ -36,6 +44,6 @@ public class BookSearchQuery {
     if (date2 != null) {
       query.append("PUBLISHEDBEFORE(").append(date2).append(") ");
     }
-    return new BritishLibraryCatalogue().searchFor(query.toString());
+    return catalogue.searchFor(query.toString());
   }
 }

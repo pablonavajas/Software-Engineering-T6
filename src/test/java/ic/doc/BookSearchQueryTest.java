@@ -74,6 +74,10 @@ public class BookSearchQueryTest {
     assertTrue(books.get(0).matchesAuthor("charles dickens"));
   }
 
+  /************************
+   *    ADDED TESTS       *
+   ************************/
+
   @Test
   public void searchesForBooksInLibraryCatalogueByAuthorSurnameUsingBuilder() {
 
@@ -82,4 +86,14 @@ public class BookSearchQueryTest {
     assertThat(books.size(), is(2));
     assertTrue(books.get(0).matchesAuthor("dickens"));
   }
+
+  @Test
+  public void searchesForBooksInLibraryCatalogueByAuthorFirstNameUsingBuilder() {
+
+    List<Book> books = BookSearchQueryBuilder.bookSearch().withFirstName("Jane").build().execute();
+
+    assertThat(books.size(), is(2));
+    assertTrue(books.get(0).matchesAuthor("Austen"));
+  }
+
 }
