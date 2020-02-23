@@ -4,18 +4,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import ic.doc.catalogues.BookSearchQueryBuilder;
-import ic.doc.catalogues.BritishLibraryCatalogue;
 import ic.doc.catalogues.MockShortCatalogue;
-import ic.doc.catalogues.Searchable;
-import org.jmock.Mockery;
-import org.jmock.auto.Mock;
-import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Test;
 
 public class BookSearchQueryTest {
@@ -99,7 +91,8 @@ public class BookSearchQueryTest {
   @Test
   public void searchesForBooksInLibraryCatalogueByAuthorFirstNameUsingBuilder() {
 
-    List<Book> books = BookSearchQueryBuilder.bookSearch().withFirstName("Jane").build().execute();
+    List<Book> books = BookSearchQueryBuilder.bookSearch().withFirstName("Jane")
+            .build().execute();
 
     assertThat(books.size(), is(2));
     assertTrue(books.get(0).matchesAuthor("Austen"));
@@ -108,7 +101,8 @@ public class BookSearchQueryTest {
   @Test
   public void searchesForBooksInLibraryCatalogueByTitleUsingBuilder() {
 
-    List<Book> books = BookSearchQueryBuilder.bookSearch().withTitle("Two Cities").build().execute();
+    List<Book> books = BookSearchQueryBuilder.bookSearch().withTitle("Two Cities")
+            .build().execute();
 
     assertThat(books.size(), is(1));
     assertTrue(books.get(0).matchesAuthor("dickens"));
@@ -117,7 +111,8 @@ public class BookSearchQueryTest {
   @Test
   public void searchesForBooksInLibraryCatalogueBeforeGivenPublicationYearUsingBuilder() {
 
-    List<Book> books = BookSearchQueryBuilder.bookSearch().beforeDate(1700).build().execute();
+    List<Book> books = BookSearchQueryBuilder.bookSearch().beforeDate(1700)
+            .build().execute();
 
     assertThat(books.size(), is(1));
     assertTrue(books.get(0).matchesAuthor("Shakespeare"));
@@ -126,7 +121,8 @@ public class BookSearchQueryTest {
   @Test
   public void searchesForBooksInLibraryCatalogueAfterGivenPublicationYearUsingBuilder() {
 
-    List<Book> books = BookSearchQueryBuilder.bookSearch().afterDate(1950).build().execute();
+    List<Book> books = BookSearchQueryBuilder.bookSearch().afterDate(1950)
+            .build().execute();
 
     assertThat(books.size(), is(1));
     assertTrue(books.get(0).matchesAuthor("Golding"));
@@ -135,7 +131,8 @@ public class BookSearchQueryTest {
   @Test
   public void searchesForBooksInLibraryCatalogueWithCombinationOfParametersUsingBuilder() {
 
-    List<Book> books = BookSearchQueryBuilder.bookSearch().withLastName("dickens").beforeDate(1840).build().execute();
+    List<Book> books = BookSearchQueryBuilder.bookSearch().withLastName("dickens")
+            .beforeDate(1840).build().execute();
 
     assertThat(books.size(), is(1));
     assertTrue(books.get(0).matchesAuthor("charles dickens"));
@@ -144,7 +141,8 @@ public class BookSearchQueryTest {
   @Test
   public void searchesForBooksInLibraryCatalogueWithCombinationOfTitleAndOtherParametersUsingBuilder() {
 
-    List<Book> books = BookSearchQueryBuilder.bookSearch().withTitle("of").afterDate(1800).beforeDate(2000).build().execute();
+    List<Book> books = BookSearchQueryBuilder.bookSearch().withTitle("of")
+            .afterDate(1800).beforeDate(2000).build().execute();
 
     assertThat(books.size(), is(3));
     assertTrue(books.get(0).matchesAuthor("charles dickens"));
