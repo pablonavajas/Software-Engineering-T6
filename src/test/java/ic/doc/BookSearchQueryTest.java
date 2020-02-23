@@ -4,9 +4,18 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import ic.doc.catalogues.BookSearchQueryBuilder;
+import ic.doc.catalogues.BritishLibraryCatalogue;
+import ic.doc.catalogues.MockShortCatalogue;
+import ic.doc.catalogues.Searchable;
+import org.jmock.Mockery;
+import org.jmock.auto.Mock;
+import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Test;
 
 public class BookSearchQueryTest {
@@ -139,6 +148,15 @@ public class BookSearchQueryTest {
 
     assertThat(books.size(), is(3));
     assertTrue(books.get(0).matchesAuthor("charles dickens"));
+  }
+
+  @Test
+  public void testingInIsolationUsingUsingAShortMockCatalogue() {
+
+    List<Book> books = BookSearchQueryBuilder.bookSearch().withLastName("dickens")
+            .build().changeCatalogue(MockShortCatalogue.getInstance()).execute();
+    assertThat(books.size(), is(1));
+    assertTrue(books.get(0).matchesAuthor("dickens"));
   }
 
 }
